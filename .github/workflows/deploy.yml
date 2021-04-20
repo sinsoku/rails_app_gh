@@ -31,3 +31,6 @@ jobs:
     - name: Run db:migrate
       if: steps.migrate.outputs.size != '0'
       run: echo "bin/rails db:migrate"
+
+    - name: Display SHA
+      run: echo "${{ github.event.pull_request.head.sha }}"

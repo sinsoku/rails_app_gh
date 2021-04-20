@@ -16,6 +16,12 @@ jobs:
       with:
         fetch-depth: 2
 
+    - name: Find revision to deploy
+      id: revision
+      run: |
+        PREV_REV=$(git rev-parse @^@ | tail -1)
+        echo "::set-output name=sha::$PREV_REV"
+
     - name: Diff files in db/migrate
       id: migrate
       run: |
@@ -28,3 +34,6 @@ jobs:
     - name: Run db:rollback
       if: steps.migrate.outputs.size != '0'
       run: echo "bin/rails db:rollback STEP=${{ steps.migrate.outputs.size }}"
+
+    - name: Display SHA
+      run: echo "${{ steps.revision.outputs.sha }}"
