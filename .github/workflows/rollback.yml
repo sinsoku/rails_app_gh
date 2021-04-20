@@ -12,6 +12,10 @@ jobs:
       url: http://example.com
 
     steps:
+    - name: Disallow rollback on branches other than main
+      if: github.event.ref != 'refs/heads/main'
+      run: exit 1
+
     - uses: actions/checkout@v2
       with:
         ref: main
