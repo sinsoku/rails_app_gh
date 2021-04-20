@@ -1,12 +1,9 @@
-name: deploy
+name: rollback
 
-on:
-  pull_request:
-    branches:
-      - main
+on: workflow_dispatch
 
 jobs:
-  deploy:
+  rollback:
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
@@ -28,6 +25,6 @@ jobs:
     - name: Display diff_files
       run: echo ${{ steps.migrate.outputs.size }}
 
-    - name: Run db:migrate
+    - name: Run db:rollback
       if: steps.migrate.outputs.size != '0'
-      run: echo "bin/rails db:migrate"
+      run: echo "bin/rails db:rollback STEP=${{ steps.migrate.outputs.size }}"
