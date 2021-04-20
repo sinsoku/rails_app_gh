@@ -14,18 +14,19 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       with:
-        fetch-depth: 3
+        ref: main
+        fetch-depth: 2
 
-    - name: Find revision to rollback
+    - name: Find revision to deploy
       id: revision
       run: |
-        PREV_REV=$(git rev-parse @^1^2)
+        PREV_REV=$(git rev-parse @^@ | tail -1)
         echo "::set-output name=sha::$PREV_REV"
 
     - name: Diff files in db/migrate
       id: migrate
       run: |
-        MIGRATE_SIZE=$(git diff --name-only ${{ steps.revision.sha }} -- db/migrate | wc -l)
+        MIGRATE_SIZE=$(git diff --name-only @^ -- db/migrate | wc -l)
         echo "::set-output name=size::$MIGRATE_SIZE"
 
     - name: Display diff_files

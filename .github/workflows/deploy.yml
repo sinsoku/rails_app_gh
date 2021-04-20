@@ -17,6 +17,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       with:
+        ref: ${{ github.event.pull_request.head.sha }}
         fetch-depth: 2
 
     - name: Diff files in db/migrate
