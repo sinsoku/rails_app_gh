@@ -1,12 +1,13 @@
 name: deploy
 
 on:
-  pull_request:
-    branches:
-      - main
+  pull_request_review:
+    types: [submitted]
+    branches: [master]
 
 jobs:
   deploy:
+    if: github.event.review.state == 'approved'
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
