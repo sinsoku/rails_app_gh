@@ -1,0 +1,21 @@
+name: deploy
+
+on: push
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+    - name: Use object
+      run:
+        echo ${{
+          fromJSON('{
+            "pending": "started",
+            "success": "succeeded",
+            "failure": "failed",
+            "error": "failed",
+            "push": "foo"
+          }')[github.event_name]
+        }}
