@@ -11,3 +11,4 @@ jobs:
     - name: Use object
       run:
         echo ${{ fromJSON('{"pending":"started","success":"succeeded","failure":"failed","error":"failed","push":"foo"}')[github.event_name] }}
+        echo ${{ ['bar'][0] }}
