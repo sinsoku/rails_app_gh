@@ -1,0 +1,27 @@
+name: matrix test
+
+on: push
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    strategy:
+      fail-fast: false
+      matrix:
+        target:
+          - foo
+          - bar
+        include:
+          - target: foo
+            name: abc
+            age: 123
+          - target: bar
+            name: def
+
+    steps:
+    - name: echo matrix variables
+      run: |
+        echo ${{ matrix.name }}
+        echo ${{ matrix.age }}
