@@ -24,4 +24,4 @@ jobs:
     - name: echo matrix variables
       run: |
         echo ${{ matrix.name }}
-        echo ${{ fromJSON(matrix.age) }}
+        echo ${{ matrix.age == '' }}
