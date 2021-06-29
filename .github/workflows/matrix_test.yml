@@ -23,5 +23,5 @@ jobs:
     steps:
     - name: echo matrix variables
       run: |
-        echo ${{ matrix.name }}
-        echo ${{ matrix.age }}
+        echo ${{ fromJSON(matrix.name) }}
+        echo ${{ fromJSON(matrix.age) }}
