@@ -1,0 +1,24 @@
+name: issue_comment test
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    if: github.event.issue.pull_request && startsWith(github.event.comment.body, '/ping')
+
+    steps:
+    - name: Create a reaction
+      uses: actions/github-script@v4
+      with:
+        script: |
+          await github.reactions.createForIssueComment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            comment_id: context.payload.comment.id,
+            content: "+1",
+          });
+
