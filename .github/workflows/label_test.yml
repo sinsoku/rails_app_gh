@@ -1,0 +1,16 @@
+name: label test
+
+on:
+  pull_request:
+    types: [labeled, unlabeled]
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+    - name: test
+      run: |
+        echo ${{ github.event_path }}
+        cat ${{ github.event_path }} | jq
