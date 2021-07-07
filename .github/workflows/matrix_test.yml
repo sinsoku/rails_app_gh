@@ -6,19 +6,19 @@ jobs:
   run:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    outputs:
+      name: ${{ matrix.name }}
 
     strategy:
       fail-fast: false
       matrix:
-        target:
+        name:
           - foo
           - bar
         include:
-          - target: foo
-            name: abc
+          - name: foo
             age: 123
-          - target: bar
-            name: def
+          - name: bar
 
     steps:
     - name: echo matrix variables
@@ -26,20 +26,12 @@ jobs:
         echo ${{ matrix.name }}
         echo ${{ matrix.age == '' }}
 
-  after_all:
+  after:
     needs: run
+    if: ${{ needs.run.outputs.name == 'abc' }
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
     steps:
     - run: |
-        echo "all OK"
-
-  after_foo:
-    needs: run-foo
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-
-    steps:
-    - run: |
-        echo "foo OK"
+        echo "${{ needs.run.outputs.name }} OK"
