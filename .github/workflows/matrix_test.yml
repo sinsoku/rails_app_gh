@@ -28,7 +28,7 @@ jobs:
 
   after:
     needs: run
-    if: ${{ needs.run.outputs.name == 'abc' }
+    if: ${{ needs.run.outputs.name == 'abc' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
