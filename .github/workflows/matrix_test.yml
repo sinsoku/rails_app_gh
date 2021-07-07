@@ -27,7 +27,7 @@ jobs:
         echo ${{ matrix.age == '' }}
 
   after_all:
-    needs: build
+    needs: run
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
@@ -36,7 +36,7 @@ jobs:
         echo "all OK"
 
   after_foo:
-    needs: build-foo
+    needs: run-foo
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
