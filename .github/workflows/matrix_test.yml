@@ -12,22 +12,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        name:
-          - foo
-          - bar
-        include:
-          - name: foo
-            age: 123
-          - name: bar
+        name: [foo, bar]
 
     steps:
     - name: echo matrix variables
       run: |
         echo ${{ matrix.name }}
-        echo ${{ matrix.age == '' }}
 
   after:
-    needs: run
+    needs: run-foo
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
