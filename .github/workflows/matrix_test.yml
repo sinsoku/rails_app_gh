@@ -15,12 +15,14 @@ jobs:
         name: [foo, bar]
 
     steps:
-    - name: echo matrix variables
+    - name: sleep
       run: |
-        echo ${{ matrix.name }}
+        SLEEP_TIME=$(( $RANDOM % 10 ))
+        echo $SLEEP_TIME
+        sleep $SLEEP_TIME
 
   after:
-    needs: run-foo
+    needs: run
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
